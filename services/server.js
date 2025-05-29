@@ -7,21 +7,26 @@ const photographerRoutes = require('./routes/photographers');
 
 const app = express();
 
-// Apply Helmet
+// ✅ Apply Helmet
 app.use(helmet());
 
-// ✅ Custom CSP allowing external images (like favicon)
+// ✅ Custom CSP allowing external images and scripts
 app.use((req, res, next) => {
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self'; connect-src 'self' https://pixisphere.netlify.app; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';"
+    "default-src 'self'; connect-src 'self' https://pixisphere.netlify.app https://pixisphere-project.netlify.app; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';"
   );
   next();
 });
 
-// ✅ CORS for frontend
+// ✅ Enable CORS for both local and deployed frontend
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://pixisphere.netlify.app'],
+  origin: [
+    'http://localhost:5173',
+    'https://pixisphere.netlify.app',
+    'https://pixisphere-project.netlify.app'
+  ],
+  credentials: true
 }));
 
 app.use(express.json());
@@ -30,12 +35,12 @@ app.use(express.json());
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
 app.use('/favicon.ico', express.static(path.join(__dirname, 'public/favicon.ico')));
 
-// ✅ Default root route (optional)
+// ✅ Default root route
 app.get('/', (req, res) => {
   res.status(200).send('Pixisphere API is running.');
 });
 
-// ✅ API route
+// ✅ Mount photographers API route
 app.use('/api/photographers', photographerRoutes);
 
 // ✅ Connect to MongoDB
@@ -48,7 +53,7 @@ mongoose.connect(process.env.MONGODB_URI, {
   console.error('MongoDB connection error:', err);
 });
 
-// ✅ Start server
+// ✅ Start the server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
