@@ -1,0 +1,424 @@
+/* General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  padding-left: 1rem;
+  transition: padding-left 0.3s ease-in-out;
+}
+
+.container.filters-open {
+  padding-left: 320px; /* Width of filters + some margin */
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Filter Toggle Button */
+.filter-toggle {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1000; /* Ensure button stays above other elements */
+}
+
+.filter-button {
+  padding: 0.5rem 1rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.filter-button:hover {
+  background-color: #2563eb;
+}
+
+/* Filters Container (Sidebar) */
+.filters-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 100%;
+  background-color: white;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 999; /* Below toggle button but above content */
+}
+
+.filters-container.show {
+  transform: translateX(0);
+}
+
+.filters-container.hide {
+  transform: translateX(-100%);
+}
+
+/* Filters Section */
+.filters {
+  padding: 1rem;
+}
+
+.filters h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.filters div {
+  margin-bottom: 1rem;
+}
+
+.filters label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.filters input[type="text"],
+.filters input[type="number"],
+.filters select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.filters input[type="checkbox"] {
+  margin-right: 0.5rem;
+  accent-color: #3b82f6; /* Blue checkbox color */
+}
+
+.filters input[type="checkbox"] + label {
+  display: inline;
+  cursor: pointer;
+}
+
+/* Listing Section */
+.listing h1 {
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
+
+/* Photographer Card */
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+  width: 100%;
+  height: 192px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.card p {
+  margin-bottom: 0.5rem;
+}
+
+.card .price {
+  color: #2c7a7b;
+  font-weight: bold;
+}
+
+.card .rating {
+  color: #d69e2e;
+}
+
+.card .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.card .tag {
+  background-color: #e2e8f0;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+}
+
+.card button {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.card button:hover {
+  background-color: #2563eb;
+}
+
+/* Photographer Profile */
+.profile {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.profile .profile-pic {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.profile h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.profile .price {
+  color: #2c7a7b;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.profile .rating {
+  color: #d69e2e;
+  margin-bottom: 0.5rem;
+}
+
+.profile .bio {
+  margin-bottom: 1rem;
+}
+
+.profile .styles,
+.profile .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.profile .style,
+.profile .tag {
+  background-color: #e2e8f0;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+}
+
+.profile .portfolio {
+  margin: 1rem 0;
+}
+
+.profile .portfolio h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.profile .portfolio-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.profile .portfolio img {
+  width: 100%;
+  height: 192px;
+  object-fit: cover;
+  border-radius: 4px;
+  background-color: #f1f1f1; /* Fallback for broken images */
+}
+
+.profile .reviews {
+  margin: 1rem 0;
+}
+
+.profile .reviews h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.profile .review {
+  border-bottom: 1px solid #ddd;
+  padding: 0.5rem 0;
+}
+
+.profile .review:last-child {
+  border-bottom: none;
+}
+
+.profile button {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.profile button:hover {
+  background-color: #2563eb;
+}
+
+/* Inquiry Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+}
+
+.modal-content h2 {
+  margin-bottom: 1rem;
+}
+
+.modal-content label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.modal-content input,
+.modal-content textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.modal-content button {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+.modal-content button:hover {
+  background-color: #2563eb;
+}
+
+.modal-content .close-button {
+  background-color: #e53e3e;
+}
+
+.modal-content .close-button:hover {
+  background-color: #c53030;
+}
+
+/* Responsive Adjustments for Filters Sidebar */
+@media (max-width: 768px) {
+  .filters-container {
+    width: 250px;
+  }
+
+  .container.filters-open {
+    padding-left: 270px;
+  }
+}
+
+@media (max-width: 480px) {
+  .filters-container {
+    width: 200px;
+  }
+
+  .container.filters-open {
+    padding-left: 220px;
+  }
+
+  .filter-button {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+/* Responsive Adjustments for Portfolio Grid */
+@media (min-width: 640px) {
+  .profile .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .profile .portfolio-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Additional Responsive Adjustments */
+@media (max-width: 640px) {
+  .listing h1 {
+    font-size: 1.2rem;
+  }
+
+  .card h3 {
+    font-size: 1rem;
+  }
+
+  .profile h2 {
+    font-size: 1.5rem;
+  }
+}
